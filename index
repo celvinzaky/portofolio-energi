@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Global Mining Corporation</title>
+  <style>
+    /* Reset */
+    * {margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif;}
+    body {background: #f9f9f9; color: #333; line-height: 1.6;}
+
+    /* Header */
+    header {
+      background: linear-gradient(rgba(0,0,0,.6), rgba(0,0,0,.6)), url('https://github.com/celvinzaky/portofolio/blob/Energi/gambar%20truk%20tambang.jpg') center/cover no-repeat;
+      color: #fff;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 0 20px;
+    }
+    header h1 {font-size: 3rem; margin-bottom: 15px; letter-spacing: 2px;}
+    header p {font-size: 1.2rem; margin-bottom: 25px;}
+    .btn-primary {
+      background: #d4af37;
+      color: #000;
+      padding: 12px 28px;
+      border: none;
+      border-radius: 25px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: .3s;
+      text-decoration: none;
+    }
+    .btn-primary:hover {background: #fff;}
+
+    /* Navigation */
+    nav {
+      background: #222;
+      padding: 15px 50px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    nav .logo {color: #d4af37; font-size: 1.5rem; font-weight: bold;}
+    nav ul {list-style: none; display: flex; gap: 25px;}
+    nav ul li a {
+      text-decoration: none;
+      color: #fff;
+      font-weight: 500;
+      transition: .3s;
+    }
+    nav ul li a:hover {color: #d4af37;}
+
+    /* Section */
+    section {padding: 70px 10%;}
+
+    .about {display: flex; gap: 40px; align-items: center;}
+    .about img {width: 50%; border-radius: 12px;}
+    .about-text h2 {font-size: 2.2rem; margin-bottom: 15px; color: #222;}
+    .about-text p {margin-bottom: 20px; font-size: 1rem; color: #555;}
+
+    .services h2, .projects h2, .contact h2 {
+      text-align: center;
+      font-size: 2rem;
+      margin-bottom: 40px;
+      color: #222;
+    }
+    .service-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px,1fr));
+      gap: 25px;
+    }
+    .card {
+      background: #fff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 3px 10px rgba(0,0,0,.1);
+      transition: .3s;
+    }
+    .card:hover {transform: translateY(-8px);}
+    .card h3 {margin-bottom: 15px; color: #d4af37;}
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px,1fr));
+      gap: 20px;
+    }
+    .projects-grid img {
+      width: 100%;
+      border-radius: 12px;
+      height: 200px;
+      object-fit: cover;
+    }
+
+    .contact form {
+      max-width: 600px;
+      margin: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .contact input, .contact textarea {
+      padding: 15px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      width: 100%;
+      font-size: 1rem;
+    }
+    .contact button {align-self: flex-start;}
+
+    footer {
+      background: #222;
+      color: #ccc;
+      text-align: center;
+      padding: 25px;
+      margin-top: 50px;
+    }
+    footer a {color: #d4af37; text-decoration: none;}
+    footer a:hover {text-decoration: underline;}
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav>
+    <div class="logo">GlobalMining</div>
+    <ul>
+      <li><a href="#about">About</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- Hero Header -->
+  <header>
+    <h1>Global Mining Corporation</h1>
+    <p>Innovating the Future of Sustainable Mining</p>
+    <a href="#about" class="btn-primary">Explore More</a>
+  </header>
+
+  <!-- About -->
+  <section id="about" class="about">
+    <img src="boom-bucket-ed9HcUgZORI-unsplash.jpg" alt="Mining Site">
+    <div class="about-text">
+      <h2>About Us</h2>
+      <p>Global Mining Corporation has been a leader in responsible mineral extraction for over 30 years. 
+      Our commitment to sustainability, safety, and innovation drives us to deliver world-class mining solutions 
+      across multiple continents.</p>
+      <p>We combine cutting-edge technology with eco-conscious practices to ensure 
+      long-term value for stakeholders and the communities we serve.</p>
+    </div>
+  </section>
+
+  <!-- Services -->
+  <section id="services" class="services">
+    <h2>Our Services</h2>
+    <div class="service-cards">
+      <div class="card">
+        <h3>Exploration</h3>
+        <p>Comprehensive geological surveys and mineral analysis to identify new mining opportunities worldwide.</p>
+      </div>
+      <div class="card">
+        <h3>Extraction</h3>
+        <p>Safe and efficient mineral extraction with state-of-the-art equipment and eco-friendly methods.</p>
+      </div>
+      <div class="card">
+        <h3>Logistics</h3>
+        <p>Global transportation and supply chain solutions to deliver resources to our partners and clients efficiently.</p>
+      </div>
+      <div class="card">
+        <h3>Consulting</h3>
+        <p>Expert advisory on mining investments, sustainability strategies, and regulatory compliance.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects -->
+  <section id="projects" class="projects">
+    <h2>Highlighted Projects</h2>
+    <div class="projects-grid">
+      <img src="boom-bucket-ed9HcUgZORI-unsplash.jpg" alt="Project 1">
+      <img src="boom-bucket-ed9HcUgZORI-unsplash.jpg" alt="Project 2">
+      <img src="boom-bucket-ed9HcUgZORI-unsplash.jpg" alt="Project 3">
+      <img src="boom-bucket-ed9HcUgZORI-unsplash.jpg" alt="Project 4">
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact" class="contact">
+    <h2>Contact Us</h2>
+    <form id="contactForm">
+      <input type="text" placeholder="Your Name" required>
+      <input type="email" placeholder="Your Email" required>
+      <textarea rows="5" placeholder="Your Message" required></textarea>
+      <button type="submit" class="btn-primary">Send Message</button>
+    </form>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 Global Mining Corporation. All Rights Reserved. | 
+    <a href="#">Privacy Policy</a></p>
+  </footer>
+
+  <script>
+    // Simple form submit handler
+    document.getElementById("contactForm").addEventListener("submit", function(e){
+      e.preventDefault();
+      alert("Thank you for reaching out! We'll get back to you soon.");
+      this.reset();
+    });
+  </script>
+
+</body>
+</html>
