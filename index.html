@@ -1,222 +1,568 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Global Mining Corporation</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Ivanhoe Inspired — Global Mining (Demo)</title>
+  <meta name="description" content="Demo single-page company profile for a mining corporation — operations, sustainability, news, investors, contact.">
   <style>
-    /* Reset */
-    * {margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif;}
-    body {background: #f9f9f9; color: #333; line-height: 1.6;}
+    /* ========== RESET & BASE ========== */
+    :root{
+      --accent:#f2c94c; /* gold */
+      --dark:#0f1720;   /* near black */
+      --muted:#6b7280;
+      --glass: rgba(255,255,255,0.06);
+      --card-bg:#ffffff;
+      --page-bg:#f6f7f9;
+      --radius:12px;
+      --max-w:1200px;
+      --fw-regular:400;
+      --fw-medium:600;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:Inter, "Segoe UI", Roboto, Arial, sans-serif;
+      background:var(--page-bg);
+      color:var(--dark);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.45;
+      scroll-behavior:smooth;
+    }
+    a{color:inherit;text-decoration:none}
+    img{display:block;max-width:100%}
+    .container{max-width:var(--max-w);margin:0 auto;padding:0 20px}
 
-    /* Header */
-    header {
-      background: linear-gradient(rgba(0,0,0,.6), rgba(0,0,0,.6)), url('gambar-truk-tambang.jpg') center/cover no-repeat;
-      color: #fff;
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      padding: 0 20px;
+    /* ========== NAVBAR ========== */
+    header.topbar{
+      position:fixed;left:0;right:0;top:0;height:72px;display:flex;align-items:center;
+      background: linear-gradient(180deg, rgba(15,23,32,0.9), rgba(15,23,32,0.7));
+      color:#fff; z-index:999; backdrop-filter: blur(6px);
+      box-shadow: 0 6px 20px rgba(2,6,23,0.25);
     }
-    header h1 {font-size: 3rem; margin-bottom: 15px; letter-spacing: 2px;}
-    header p {font-size: 1.2rem; margin-bottom: 25px;}
-    .btn-primary {
-      background: #d4af37;
-      color: #000;
-      padding: 12px 28px;
-      border: none;
-      border-radius: 25px;
-      font-weight: bold;
-      cursor: pointer;
-      transition: .3s;
-      text-decoration: none;
-    }
-    .btn-primary:hover {background: #fff;}
+    .nav-inner{display:flex;align-items:center;justify-content:space-between;width:100%}
+    .brand{display:flex;align-items:center;gap:12px;font-weight:700}
+    .brand .logo-spot{width:44px;height:44px;border-radius:8px;background:linear-gradient(135deg,#111,#222);display:flex;align-items:center;justify-content:center;color:var(--accent);font-weight:800}
+    nav.mainnav ul{display:flex;gap:18px;list-style:none;margin:0;padding:0}
+    nav.mainnav a{color:#e6eef8;padding:8px 10px;border-radius:8px;font-weight:600;opacity:.95}
+    nav.mainnav a:hover{background:rgba(255,255,255,0.04);color:var(--accent)}
+    .nav-cta{margin-left:18px;padding:8px 14px;border-radius:8px;background:var(--accent);color:#07111a;font-weight:700}
 
-    /* Navigation */
-    nav {
-      background: #222;
-      padding: 15px 50px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      position: sticky;
-      top: 0;
-      z-index: 1000;
+    /* ========== HERO ========== */
+    .hero{
+      height:100vh;display:flex;align-items:center;justify-content:center;padding-top:72px;
+      background:
+        linear-gradient(180deg, rgba(3,7,18,0.58), rgba(3,7,18,0.58)),
+        url('https://images.unsplash.com/photo-1508873535684-277a3cbcc3f6?q=80&w=1800&auto=format&fit=crop&ixlib=rb-4.0.3&s=') center/cover no-repeat;
+      color:#fff;text-align:center;
     }
-    nav .logo {color: #d4af37; font-size: 1.5rem; font-weight: bold;}
-    nav ul {list-style: none; display: flex; gap: 25px;}
-    nav ul li a {
-      text-decoration: none;
-      color: #fff;
-      font-weight: 500;
-      transition: .3s;
-    }
-    nav ul li a:hover {color: #d4af37;}
+    .hero .wrap{max-width:980px;margin:0 auto;padding:40px 20px}
+    .kicker{display:inline-block;padding:8px 12px;border-radius:999px;background:rgba(255,255,255,0.06);font-weight:700;color:var(--accent);margin-bottom:18px}
+    h1.hero-title{font-size:clamp(28px,4.5vw,56px);line-height:1.02;margin:0 0 18px;font-weight:800;letter-spacing:-1px}
+    p.lead{font-size:18px;color:rgba(255,255,255,0.9);max-width:820px;margin:0 auto 26px}
+    .hero-actions{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+    .btn{display:inline-flex;align-items:center;gap:10px;padding:12px 18px;border-radius:10px;font-weight:700;cursor:pointer}
+    .btn.primary{background:var(--accent);color:#07111a}
+    .btn.ghost{background:transparent;border:1px solid rgba(255,255,255,0.12);color:#fff}
 
-    /* Section */
-    section {padding: 70px 10%;}
+    /* ========== SECTIONS ========== */
+    section.section{padding:72px 0}
+    .section .section-head{text-align:center;margin-bottom:36px}
+    .section .section-head h2{font-size:28px;margin:0;color:var(--dark)}
+    .section .section-head p{color:var(--muted);margin-top:8px}
 
-    .about {display: flex; gap: 40px; align-items: center;}
-    .about img {width: 50%; border-radius: 12px;}
-    .about-text h2 {font-size: 2.2rem; margin-bottom: 25px; color: #222;}
-    .about-text p {margin-bottom: 20px; font-size: 1rem; color: #555;}
+    /* ========== ABOUT ========== */
+    .about-grid{display:grid;grid-template-columns:1fr 420px;gap:28px;align-items:center}
+    .about-card{background:linear-gradient(180deg,#fff,#fbfbfb);padding:28px;border-radius:16px;box-shadow:0 10px 30px rgba(20,30,40,0.06)}
+    .about-card h3{margin-bottom:10px;color:var(--dark)}
+    .about-card p{color:var(--muted)}
 
-    .services h2, .projects h2, .contact h2 {
-      text-align: center;
-      font-size: 2rem;
-      margin-bottom: 40px;
-      color: #222;
-    }
-    .service-cards {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px,1fr));
-      gap: 25px;
-    }
-    .card {
-      background: #fff;
-      padding: 30px;
-      border-radius: 12px;
-      box-shadow: 0 3px 10px rgba(0,0,0,.1);
-      transition: .3s;
-    }
-    .card:hover {transform: translateY(-8px);}
-    .card h3 {margin-bottom: 15px; color: #d4af37;}
+    /* ========== OPERATIONS / PROJECTS ========== */
+    .ops-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px}
+    .op-card{background:#fff;border-radius:12px;padding:16px;box-shadow:0 8px 20px rgba(15,23,32,0.06);position:relative;overflow:hidden}
+    .op-card img{width:100%;height:160px;object-fit:cover;border-radius:8px;margin-bottom:12px}
+    .op-meta{display:flex;justify-content:space-between;align-items:center;font-size:13px;color:var(--muted);margin-bottom:8px}
+    .op-title{font-weight:700;margin-bottom:8px}
+    .op-cta{display:inline-flex;padding:8px 12px;border-radius:8px;background:var(--accent);font-weight:700;color:#07111a}
 
-    .projects-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px,1fr));
-      gap: 20px;
-    }
-    .projects-grid img {
-      width: 100%;
-      border-radius: 12px;
-      height: 200px;
-      object-fit: cover;
-    }
+    /* overlay detail */
+    .modal{position:fixed;inset:0;background:rgba(2,6,23,0.6);display:none;align-items:center;justify-content:center;padding:24px;z-index:1200}
+    .modal .sheet{background:#fff;border-radius:12px;max-width:900px;width:100%;max-height:85vh;overflow:auto;padding:20px}
+    .modal .sheet h3{margin-top:0}
 
-    .contact form {
-      max-width: 600px;
-      margin: auto;
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-    }
-    .contact input, .contact textarea {
-      padding: 15px;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      width: 100%;
-      font-size: 1rem;
-    }
-    .contact button {align-self: flex-start;}
+    /* ========== SUSTAINABILITY / VALUES ========== */
+    .values-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px}
+    .value{background:linear-gradient(180deg,#fff,#fbfbfb);padding:20px;border-radius:12px;text-align:center;box-shadow:0 8px 18px rgba(2,6,23,0.04)}
+    .value h4{margin:12px 0 6px;color:var(--dark)}
 
-    footer {
-      background: #222;
-      color: #ccc;
-      text-align: center;
-      padding: 25px;
-      margin-top: 50px;
+    /* ========== NEWS / STORIES ========== */
+    .news-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px}
+    .news-card{background:#fff;padding:16px;border-radius:12px;box-shadow:0 8px 20px rgba(2,6,23,0.04)}
+    .news-date{font-size:13px;color:var(--muted);margin-bottom:8px}
+    .news-card p{color:var(--muted)}
+
+    /* ========== INVESTOR HIGHLIGHTS ========== */
+    .invest-grid{display:flex;gap:18px;flex-wrap:wrap;justify-content:center}
+    .invest-pill{background:#07111a;color:#fff;padding:18px;border-radius:12px;min-width:160px;text-align:center;box-shadow:0 8px 20px rgba(2,6,23,0.12)}
+    .invest-pill h4{margin:0 0 6px;color:var(--accent)}
+
+    /* ========== STATS COUNTER ========== */
+    .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:18px;text-align:center}
+    .stat{background:linear-gradient(180deg,#fff,#fbfbfb);padding:20px;border-radius:12px;box-shadow:0 8px 18px rgba(2,6,23,0.04)}
+    .stat .num{font-size:28px;font-weight:800;color:var(--dark);margin-bottom:6px}
+    .stat .label{font-size:13px;color:var(--muted)}
+
+    /* ========== CONTACT / FOOTER ========== */
+    .contact-grid{display:grid;grid-template-columns:1fr 420px;gap:24px;align-items:start}
+    .contact-card{background:#fff;padding:20px;border-radius:12px;box-shadow:0 8px 20px rgba(2,6,23,0.04)}
+    form.contact-form{display:grid;gap:12px}
+    input[type=text],input[type=email],textarea{width:100%;padding:12px;border:1px solid #e6e9ee;border-radius:8px;font-size:14px}
+    button[type=submit]{background:var(--accent);border:none;padding:12px 16px;border-radius:8px;font-weight:800;cursor:pointer}
+
+    footer.site-footer{padding:28px 0;background:#07111a;color:#c7d2da;margin-top:36px}
+    .footer-grid{display:flex;gap:26px;flex-wrap:wrap;align-items:flex-start}
+    .footer-col{min-width:160px}
+
+    /* ========== MISC ========== */
+    .chip{display:inline-block;padding:6px 10px;border-radius:999px;background:rgba(2,6,23,0.05);font-weight:700;color:var(--muted);font-size:13px}
+
+    /* Responsive */
+    @media (max-width:980px){
+      .about-grid{grid-template-columns:1fr; text-align:left}
+      .contact-grid{grid-template-columns:1fr}
+      nav.mainnav{display:none}
+      .nav-cta{display:none}
+      header.topbar{padding:0 14px}
     }
-    footer a {color: #d4af37; text-decoration: none;}
-    footer a:hover {text-decoration: underline;}
   </style>
 </head>
 <body>
 
-  <!-- Navigation -->
-  <nav>
-    <div class="logo">GlobalMining</div>
-    <ul>
-      <li><a href="#about">About</a></li>
-      <li><a href="#services">Services</a></li>
-      <li><a href="#projects">Projects</a></li>
-      <li><a href="#contact">Contact</a></li>
-    </ul>
-  </nav>
+  <!-- NAVBAR -->
+  <header class="topbar" role="banner">
+    <div class="container nav-inner" style="display:flex;align-items:center;justify-content:space-between">
+      <div class="brand" style="gap:10px">
+        <div class="logo-spot">IM</div>
+        <div style="line-height:1">
+          <div style="font-weight:800">Ivanhoe<span style="color:var(--accent)">Demo</span></div>
+          <div style="font-size:12px;color:#d1dadd">Mining with purpose</div>
+        </div>
+      </div>
 
-  <!-- Hero Header -->
-  <header>
-    <h1>Global Mining Corporation</h1>
-    <p>Innovating the Future of Sustainable Mining</p>
-    <a href="#about" class="btn-primary">Explore More</a>
+      <nav class="mainnav" aria-label="Primary">
+        <ul>
+          <li><a href="#about">About</a></li>
+          <li><a href="#operations">Operations</a></li>
+          <li><a href="#sustainability">Sustainability</a></li>
+          <li><a href="#news">News</a></li>
+          <li><a href="#investors">Investors</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+
+      <div style="display:flex;align-items:center;gap:10px">
+        <a class="chip" href="#investors">Investor Hub</a>
+        <a class="nav-cta" href="#contact">Contact Us</a>
+      </div>
+    </div>
   </header>
 
-  <!-- About -->
-  <section id="about" class="about">
-    <img src="boom-bucket-ed9HcUgZORI-unsplash.jpg" alt="Mining Site">
-    <div class="about-text">
-      <h2>About Us</h2>
-      <p>Global Mining Corporation has been a leader in responsible mineral extraction for over 30 years. 
-      Our commitment to sustainability, safety, and innovation drives us to deliver world-class mining solutions 
-      across multiple continents.</p>
-      <p>We combine cutting-edge technology with eco-conscious practices to ensure 
-      long-term value for stakeholders and the communities we serve.</p>
+  <!-- HERO -->
+  <main>
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="wrap container">
+        <div class="kicker">Mining • Energy • Sustainability</div>
+        <h1 id="hero-title" class="hero-title">Mining with a greater purpose.</h1>
+        <p class="lead">We discover, develop and produce the critical resources needed for a resilient future—ethically, safely and innovatively.</p>
+        <div class="hero-actions">
+          <a class="btn primary" href="#operations">View Operations</a>
+          <a class="btn ghost" href="#sustainability">Our Sustainability Report</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about" class="section">
+      <div class="container">
+        <div class="section-head">
+          <h2>About the Company</h2>
+          <p>Overview, vision, and core values that guide our global operations.</p>
+        </div>
+        <div class="about-grid">
+          <div class="about-card">
+            <h3>Our Purpose & Vision</h3>
+            <p><strong>Purpose:</strong> To discover, develop and produce the critical resources needed for a resilient future on planet Earth.</p>
+            <p><strong>Vision:</strong> To become the global leader in the supply of essential metals for the world's transition to clean energy.</p>
+
+            <div style="margin-top:16px">
+              <strong>Values</strong>
+              <ul style="margin-top:8px;color:var(--muted);line-height:1.6">
+                <li>Ingenuity</li>
+                <li>Tenacity</li>
+                <li>Compassion</li>
+              </ul>
+            </div>
+          </div>
+
+          <aside>
+            <img src="https://images.unsplash.com/photo-1594182878753-020c0d1cc5ae?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&s=" alt="Mining site aerial">
+            <div style="height:14px"></div>
+            <div style="display:flex;gap:10px">
+              <div style="background:#fff;padding:12px;border-radius:10px;box-shadow:0 8px 20px rgba(2,6,23,0.04);flex:1">
+                <div style="font-size:12px;color:var(--muted)">Headquarters</div>
+                <div style="font-weight:800">London, UK</div>
+              </div>
+              <div style="background:#fff;padding:12px;border-radius:10px;box-shadow:0 8px 20px rgba(2,6,23,0.04);flex:1">
+                <div style="font-size:12px;color:var(--muted)">Active Projects</div>
+                <div style="font-weight:800">6 Regions</div>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <!-- OPERATIONS -->
+    <section id="operations" class="section" style="background:linear-gradient(180deg,#ffffff,#fbfdff)">
+      <div class="container">
+        <div class="section-head">
+          <h2>Operations & Projects</h2>
+          <p>Major assets within our portfolio — click any project for a quick summary.</p>
+        </div>
+
+        <div class="ops-grid" role="list">
+          <!-- Card 1 -->
+          <div class="op-card" role="listitem">
+            <img src="https://images.unsplash.com/photo-1597009357982-fcd8f48c3c53?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=" alt="Copper mine">
+            <div class="op-meta"><span>Mine Ownership: 39.6%</span><span>DRC</span></div>
+            <div class="op-title">Kamoa-Kakula Copper Complex</div>
+            <div style="color:var(--muted);font-size:14px;margin-bottom:12px">One of the world's highest-grade copper mines with low emissions intensity.</div>
+            <div style="display:flex;gap:10px;align-items:center">
+              <button class="op-cta" data-project="kamoa">Learn More</button>
+              <a href="#contact" class="chip">Contact Project Team</a>
+            </div>
+          </div>
+
+          <!-- Card 2 -->
+          <div class="op-card">
+            <img src="https://images.unsplash.com/photo-1604072366599-5f83cf38e7f5?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=" alt="oil rig">
+            <div class="op-meta"><span>Ownership: 62%</span><span>Zinc/DRC</span></div>
+            <div class="op-title">Kipushi Zinc Mine</div>
+            <div style="color:var(--muted);font-size:14px;margin-bottom:12px">Historic high-grade zinc and associated metals, returned to production with modern techniques.</div>
+            <div style="display:flex;gap:10px;align-items:center">
+              <button class="op-cta" data-project="kipushi">Learn More</button>
+              <a href="#contact" class="chip">Contact Project Team</a>
+            </div>
+          </div>
+
+          <!-- Card 3 -->
+          <div class="op-card">
+            <img src="https://images.unsplash.com/photo-1581090700227-4c4eb2c83d44?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=" alt="mining site">
+            <div class="op-meta"><span>Ownership: 64%</span><span>South Africa</span></div>
+            <div class="op-title">Platreef PGM-Nickel Mine</div>
+            <div style="color:var(--muted);font-size:14px;margin-bottom:12px">Large-scale precious metals and nickel project with long-life potential.</div>
+            <div style="display:flex;gap:10px;align-items:center">
+              <button class="op-cta" data-project="platreef">Learn More</button>
+              <a href="#contact" class="chip">Contact Project Team</a>
+            </div>
+          </div>
+
+          <!-- Card 4 -->
+          <div class="op-card">
+            <img src="https://images.unsplash.com/photo-1620048283349-5f3d06c938c2?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=" alt="solar farm">
+            <div class="op-meta"><span>Regional Exploration</span><span>Exploration</span></div>
+            <div class="op-title">Western Forelands Copper Exploration</div>
+            <div style="color:var(--muted);font-size:14px;margin-bottom:12px">Extensive exploration with multiple discoveries across the forelands region.</div>
+            <div style="display:flex;gap:10px;align-items:center">
+              <button class="op-cta" data-project="western">Learn More</button>
+              <a href="#contact" class="chip">Contact Project Team</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SUSTAINABILITY -->
+    <section id="sustainability" class="section">
+      <div class="container">
+        <div class="section-head">
+          <h2>Sustainability</h2>
+          <p>How we manage people, planet and prosperity across our operations.</p>
+        </div>
+
+        <div style="display:flex;gap:22px;flex-wrap:wrap;align-items:stretch">
+          <div style="flex:1;min-width:320px" class="about-card">
+            <h3>Our Approach</h3>
+            <p style="color:var(--muted)">Sustainability governance, community partnerships, and low-carbon operations are central to our strategy. We publish an annual sustainability report and maintain transparent disclosure of our environmental footprint.</p>
+            <ul style="margin-top:12px;color:var(--muted);line-height:1.7">
+              <li>Community & Shared Value Programs</li>
+              <li>Emissions reduction & energy transition targets</li>
+              <li>Health & Safety standards exceeding regulatory requirements</li>
+            </ul>
+            <div style="margin-top:14px"><a class="btn ghost" href="#news">Download Report</a></div>
+          </div>
+
+          <div style="flex:1;min-width:320px">
+            <div class="values-grid">
+              <div class="value"><div style="font-size:22px">🌍</div><h4>Planet</h4><p style="color:var(--muted)">Minimize environmental impact through restoration & low-carbon tech.</p></div>
+              <div class="value"><div style="font-size:22px">👥</div><h4>People</h4><p style="color:var(--muted)">Invest in safe workplaces & local capacity building through employment programs.</p></div>
+              <div class="value"><div style="font-size:22px">💼</div><h4>Prosperity</h4><p style="color:var(--muted)">Deliver economic benefits for stakeholders and host communities.</p></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- NEWS -->
+    <section id="news" class="section" style="background:linear-gradient(180deg,#f8fbff,#ffffff)">
+      <div class="container">
+        <div class="section-head">
+          <h2>Latest News & Stories</h2>
+          <p>Company updates, project milestones and stories from the field.</p>
+        </div>
+
+        <div class="news-list">
+          <article class="news-card">
+            <div class="news-date">18 Sep 2025</div>
+            <h3 style="margin-bottom:8px">Kamoa-Kakula Project on Track</h3>
+            <p>Stage Two dewatering commenced; underground access improving and production guidance to follow.</p>
+            <div style="margin-top:12px"><a href="#news" class="chip">Read more</a></div>
+          </article>
+
+          <article class="news-card">
+            <div class="news-date">04 Sep 2025</div>
+            <h3 style="margin-bottom:8px">Discovery in Kazakhstan</h3>
+            <p>Copper mineralization identified on surface during regional exploration campaign.</p>
+            <div style="margin-top:12px"><a href="#news" class="chip">Read more</a></div>
+          </article>
+
+          <article class="news-card">
+            <div class="news-date">17 Sep 2025</div>
+            <h3 style="margin-bottom:8px">Strategic Private Placement</h3>
+            <p>US$500M placement with strategic partner to accelerate regional development.</p>
+            <div style="margin-top:12px"><a href="#news" class="chip">Read more</a></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- INVESTORS -->
+    <section id="investors" class="section">
+      <div class="container">
+        <div class="section-head">
+          <h2>Investors & Financials</h2>
+          <p>Key investor resources and recent highlights.</p>
+        </div>
+
+        <div style="display:flex;gap:18px;flex-wrap:wrap;align-items:center;justify-content:center">
+          <div class="invest-pill"><h4>TSX: IVN</h4><div>CA$12.92</div></div>
+          <div class="invest-pill"><h4>OTCQX: IVPAF</h4><div>US$9.46</div></div>
+          <div class="invest-pill"><h4>Documents</h4><div><a class="chip" href="#news">Latest Reports</a></div></div>
+        </div>
+
+        <div style="margin-top:28px" class="stats">
+          <div class="stat"><div class="num" data-target="50">0</div><div class="label">Years Experience</div></div>
+          <div class="stat"><div class="num" data-target="120">0</div><div class="label">Projects Completed</div></div>
+          <div class="stat"><div class="num" data-target="10000">0</div><div class="label">Employees Worldwide</div></div>
+          <div class="stat"><div class="num" data-target="30">0</div><div class="label">Countries Served</div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="section">
+      <div class="container">
+        <div class="section-head">
+          <h2>Contact & Inquiries</h2>
+          <p>Get in touch for project enquiries, investor relations or media requests.</p>
+        </div>
+
+        <div class="contact-grid">
+          <div class="contact-card">
+            <form class="contact-form" id="mainContact">
+              <input type="text" name="name" placeholder="Full name" required>
+              <input type="email" name="email" placeholder="Email address" required>
+              <input type="text" name="subject" placeholder="Subject / Team" required>
+              <textarea name="message" rows="6" placeholder="Your message" required></textarea>
+              <div style="display:flex;gap:10px;align-items:center">
+                <button type="submit">Send Message</button>
+                <div style="margin-left:auto;color:var(--muted);font-size:13px">Response within 2 business days</div>
+              </div>
+            </form>
+          </div>
+
+          <aside style="display:flex;flex-direction:column;gap:12px">
+            <div style="background:#fff;padding:16px;border-radius:12px;box-shadow:0 8px 20px rgba(2,6,23,0.04)">
+              <strong>Head Office</strong>
+              <div style="color:var(--muted);margin-top:6px">123 Corporate Way, London, UK</div>
+              <div style="margin-top:8px"><a class="chip" href="mailto:info@example.com">info@example.com</a></div>
+            </div>
+
+            <div style="background:#fff;padding:12px;border-radius:12px;box-shadow:0 8px 20px rgba(2,6,23,0.04)">
+              <strong>Media & Press</strong>
+              <div style="color:var(--muted);margin-top:6px">press@example.com</div>
+            </div>
+
+            <div style="background:#fff;padding:12px;border-radius:12px;box-shadow:0 8px 20px rgba(2,6,23,0.04)">
+              <strong>Careers</strong>
+              <div style="color:var(--muted);margin-top:6px">View open roles on our careers portal</div>
+              <div style="margin-top:8px"><a class="chip" href="#">Careers Portal</a></div>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="site-footer">
+      <div class="container footer-grid">
+        <div class="footer-col">
+          <div style="font-weight:800">Global Mining Demo</div>
+          <div style="color:var(--muted);margin-top:6px;font-size:13px">Mining with purpose. Demo site inspired by Ivanhoe Mines.</div>
+        </div>
+        <div class="footer-col">
+          <div style="font-weight:700;margin-bottom:8px">Quick Links</div>
+          <div style="display:flex;flex-direction:column;gap:8px;color:var(--muted)">
+            <a href="#operations">Operations & Projects</a>
+            <a href="#sustainability">Sustainability</a>
+            <a href="#news">News</a>
+            <a href="#investors">Investor Hub</a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <div style="font-weight:700;margin-bottom:8px">Contact</div>
+          <div style="color:var(--muted)">info@example.com</div>
+          <div style="color:var(--muted);margin-top:8px">+44 (0)20 0000 0000</div>
+        </div>
+      </div>
+    </footer>
+  </main>
+
+  <!-- PROJECT DETAIL MODAL -->
+  <div id="modal" class="modal" aria-hidden="true" role="dialog">
+    <div class="sheet" role="document">
+      <button id="closeModal" style="float:right;background:transparent;border:none;font-size:18px;cursor:pointer">✕</button>
+      <div id="modalContent">
+        <!-- Filled via JS -->
+      </div>
     </div>
-  </section>
-
-  <!-- Services -->
-  <section id="services" class="services">
-    <h2>Our Services</h2>
-    <div class="service-cards">
-      <div class="card">
-        <h3>Exploration</h3>
-        <p>Comprehensive geological surveys and mineral analysis to identify new mining opportunities worldwide.</p>
-      </div>
-      <div class="card">
-        <h3>Extraction</h3>
-        <p>Safe and efficient mineral extraction with state-of-the-art equipment and eco-friendly methods.</p>
-      </div>
-      <div class="card">
-        <h3>Logistics</h3>
-        <p>Global transportation and supply chain solutions to deliver resources to our partners and clients efficiently.</p>
-      </div>
-      <div class="card">
-        <h3>Consulting</h3>
-        <p>Expert advisory on mining investments, sustainability strategies, and regulatory compliance.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- Projects -->
-  <section id="projects" class="projects">
-    <h2>Highlighted Projects</h2>
-    <div class="projects-grid">
-      <img src="boom-bucket-ed9HcUgZORI-unsplash.jpg" alt="Project 1">
-      <img src="boom-bucket-ed9HcUgZORI-unsplash.jpg" alt="Project 2">
-      <img src="boom-bucket-ed9HcUgZORI-unsplash.jpg" alt="Project 3">
-      <img src="boom-bucket-ed9HcUgZORI-unsplash.jpg" alt="Project 4">
-    </div>
-  </section>
-
-  <!-- Contact -->
-  <section id="contact" class="contact">
-    <h2>Contact Us</h2>
-    <form id="contactForm">
-      <input type="text" placeholder="Your Name" required>
-      <input type="email" placeholder="Your Email" required>
-      <textarea rows="5" placeholder="Your Message" required></textarea>
-      <button type="submit" class="btn-primary">Send Message</button>
-    </form>
-  </section>
-
-  <!-- Footer -->
-  <footer>
-    <p>&copy; 2025 Global Mining Corporation. All Rights Reserved. | 
-    <a href="#">Privacy Policy</a></p>
-  </footer>
+  </div>
 
   <script>
-    // Simple form submit handler
-    document.getElementById("contactForm").addEventListener("submit", function(e){
-      e.preventDefault();
-      alert("Thank you for reaching out! We'll get back to you soon.");
-      this.reset();
-    });
-  </script>
+    /* ========== Smooth anchor focus (header offset) ========== */
+    (function(){
+      // fix offset when clicking anchors because header is fixed
+      const headerHeight = document.querySelector('.topbar').offsetHeight || 72;
+      document.querySelectorAll('a[href^="#"]').forEach(a=>{
+        a.addEventListener('click', function(e){
+          const targetId = this.getAttribute('href').slice(1);
+          const el = document.getElementById(targetId);
+          if(el){
+            e.preventDefault();
+            const top = el.getBoundingClientRect().top + window.pageYOffset - headerHeight - 16;
+            window.scrollTo({top, behavior:'smooth'});
+          }
+        })
+      })
+    })();
 
+    /* ========== Modal project details ========== */
+    (function(){
+      const modal = document.getElementById('modal');
+      const modalContent = document.getElementById('modalContent');
+      const closeBtn = document.getElementById('closeModal');
+
+      const projects = {
+        'kamoa': {
+          title:'Kamoa-Kakula Copper Complex',
+          img:'https://images.unsplash.com/photo-1597009357982-fcd8f48c3c53?q=80&w=1600&auto=format&fit=crop&ixlib=rb-4.0.3&s=',
+          summary:'World’s fastest growing, high-grade copper complex with low carbon intensity.',
+          bullets:['High-grade copper ore','Stage 2 dewatering underway','Sustainable tailings management']
+        },
+        'kipushi': {
+          title:'Kipushi Zinc Mine',
+          img:'https://images.unsplash.com/photo-1604072366599-5f83cf38e7f5?q=80&w=1600&auto=format&fit=crop&ixlib=rb-4.0.3&s=',
+          summary:'Historic, high-grade zinc and associated metals mine recently returned to production.',
+          bullets:['Zinc concentrates','Germanium recovery','High-grade zones']
+        },
+        'platreef': {
+          title:'Platreef PGM-Nickel Mine',
+          img:'https://images.unsplash.com/photo-1581090700227-4c4eb2c83d44?q=80&w=1600&auto=format&fit=crop&ixlib=rb-4.0.3&s=',
+          summary:'Large precious metal and nickel complex with long-term potential.',
+          bullets:['Platinum-group metals','Large resource base','Infrastructure development']
+        },
+        'western': {
+          title:'Western Forelands Exploration',
+          img:'https://images.unsplash.com/photo-1620048283349-5f3d06c938c2?q=80&w=1600&auto=format&fit=crop&ixlib=rb-4.0.3&s=',
+          summary:'Extensive exploration program targeting new copper discoveries.',
+          bullets:['Regional drilling','Multiple targets','Geological mapping']
+        }
+      };
+
+      document.querySelectorAll('.op-cta').forEach(btn=>{
+        btn.addEventListener('click', ()=>{
+          const key = btn.getAttribute('data-project');
+          const p = projects[key];
+          if(!p) return;
+          modalContent.innerHTML = `
+            <h3>${p.title}</h3>
+            <img src="${p.img}" alt="${p.title}" style="width:100%;border-radius:8px;margin:12px 0">
+            <p style="color:#6b7280">${p.summary}</p>
+            <ul style="color:#6b7280;margin-top:8px">${p.bullets.map(b=>'<li>'+b+'</li>').join('')}</ul>
+            <div style="margin-top:12px;display:flex;gap:10px">
+              <a class="btn primary" href="#contact">Contact Project Team</a>
+              <a class="btn ghost" href="#news">Read Full Report</a>
+            </div>
+          `;
+          modal.style.display = 'flex';
+          modal.setAttribute('aria-hidden','false');
+        });
+      });
+
+      closeBtn.addEventListener('click', ()=>{ modal.style.display='none'; modal.setAttribute('aria-hidden','true'); });
+      modal.addEventListener('click', (e)=>{ if(e.target===modal) { modal.style.display='none'; modal.setAttribute('aria-hidden','true'); } });
+    })();
+
+    /* ========== Counter animation on scroll ========== */
+    (function(){
+      const counters = document.querySelectorAll('.num');
+      let started = false;
+      function animate(){
+        if(started) return;
+        const rect = document.querySelector('#investors').getBoundingClientRect();
+        if(rect.top < window.innerHeight - 100){
+          started = true;
+          counters.forEach(c=>{
+            const target = +c.getAttribute('data-target');
+            let cur = 0;
+            const step = Math.max(1, Math.floor(target/80));
+            const t = setInterval(()=>{ cur += step; if(cur >= target){ c.textContent = target; clearInterval(t)} else c.textContent = cur }, 18);
+          })
+        }
+      }
+      window.addEventListener('scroll', animate);
+      animate();
+    })();
+
+    /* ========== Contact form (demo) ========== */
+    (function(){
+      document.getElementById('mainContact').addEventListener('submit', function(e){
+        e.preventDefault();
+        alert('Message sent — demo mode. In production wire a POST to your backend or use Formspree / Netlify Forms.');
+        this.reset();
+      });
+    })();
+
+    /* ========== Accessibility small tweaks ========== */
+    (function(){
+      // focus outlines only for keyboard users
+      function handleFirstTab(e){
+        if(e.key === 'Tab'){document.body.classList.add('show-focus')}
+      }
+      window.addEventListener('keydown', handleFirstTab);
+    })();
+  </script>
 </body>
 </html>
